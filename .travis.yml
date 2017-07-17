@@ -1,0 +1,14 @@
+sudo: false
+language: go
+go:
+  - 1.8
+  - 1.8.1
+before_install:
+  - go get -t -v ./...
+  - go get github.com/modocache/gover
+  - go get github.com/mattn/goveralls
+script:
+  - go test -coverprofile=trie.coverprofile
+  - go test -coverprofile=mux.coverprofile ./mux
+  - gover
+  - goveralls -coverprofile=gover.coverprofile -service=travis-ci
